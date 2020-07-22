@@ -282,6 +282,10 @@ public class MatchTrigger extends IntervalTrigger {
      * @return true if the operation could be made.
      */
     private boolean setDayOfWeek (Calendar cal) {
+		/* Calendar date needs to be set before calling setFirstDayOfWeek to prevent skipping of a week, when current date is Sunday and specials.get(0)==7 */
+		int currentDate = cal.get(Calendar.DATE);
+	    cal.set(Calendar.DATE, currentDate);
+	
         cal.setFirstDayOfWeek(Calendar.MONDAY);
         int day      = WEEKDAYS_REV[cal.get(DAY_OF_WEEK)];
         int month    = cal.get(Calendar.MONTH);
